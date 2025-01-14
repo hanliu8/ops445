@@ -7,4 +7,3 @@ print(age)
 print(address)
 print(percentage)
 
-

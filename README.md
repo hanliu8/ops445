@@ -276,10 +276,10 @@ Playbook tells Ansible what to execute by which user on the remote machine.
 Playbook is like a to-do list for Ansible
 Playbook is written in "YAML".
 Playbook links a task to an ansible module and provide needed arguments to the module which requires them.
-Part 1: A playbook to update the /etc/motd file
+### Part 1: A playbook to update the /etc/motd file
 Name: motd-play.yml
 
-[raymond.chan@mtrx-node02pd lab8]$ cat motd-play.yml 
+$ cat motd-play.yml 
 ---
 - name: update motd file
   hosts: vmlab
@@ -296,7 +296,8 @@ Name: motd-play.yml
 
 Sample Run:
 
-[raymond.chan@mtrx-node02pd lab8]$ ansible-playbook -i hosts -b motd-play.yml 
+```
+$ ansible-playbook -i hosts -b motd-play.yml 
 
 PLAY [update motd file] *******************************************************************
 
@@ -308,10 +309,10 @@ changed: [vmlab]
 
 PLAY RECAP ********************************************************************************
 vmlab   ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+```
 Try to run it the 2nd time and pay attention to the result. What conclusion can you draw?
 
-Part 2: A playbook to install and start Apache Server
+### Part 2: A playbook to install and start Apache Server
 Name: httpd-play.yml
 
 ---
@@ -349,17 +350,18 @@ changed: [vmlab]
 PLAY RECAP **********************************************************************
 vmlab : ok=3  changed=2  unreachable=0  failed=0  skipped=0  rescued=0  ignored=0
 
-Investigation 3: Using Playbook to configure an OPS445 Linux VM machine
+## Investigation 3: Using Playbook to configure an OPS445 Linux VM machine
 Assume you have just installed the latest version of CentOS 7.x on a VM with GNOME Desktop. You need to configure it so that you can use it for doing the Labs for OPS445.
 
 Study the documentation and examples of following ansible modules:
 
-copy
-file
-hostname
-template
-user
-yum
+- copy
+- file
+- hostname
+- template
+- user
+- apt
+
 Create an ansible playbook named "config_ops445.yml" using the appropriate modules to perform the following configuration tasks on your assigned VM:
 
 update Apache (httpd) installed in the Investigation 2 - Part 2

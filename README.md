@@ -1,7 +1,7 @@
 # Lab 8: Ansible
 ## Objective
 
-1. Spin up a develop environment for Ansible
+1. Set up a develop environment for Ansible
 2. Explore and run Ansible's ad hoc commands
 3. Explore and study a few Ansible's modules
 4. Explore, create, and run a few Ansible playbooks

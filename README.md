@@ -1,6 +1,5 @@
 # Lab 8: Ansible
 ## Objective
-
 1. Set up a develop environment for Ansible
 2. Explore and run Ansible's ad hoc commands
 3. Explore and study a few Ansible's modules
@@ -11,7 +10,7 @@ Ansible is an agentless IT automation engine for automating cloud provisioning, 
 
 Ansible uses no additional custom security infrastructure, and it uses a very simple human readable language called 'YAML', to compose an Ansible Playbook which allows you to describe the tasks you want to automate.
 
-Reference
+## Reference
 For more detail information about ansible, check out the ansible web site at www.ansible.com
 Overview on how ansible works
 Ansible Latest User Guide

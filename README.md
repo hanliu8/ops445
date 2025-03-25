@@ -104,6 +104,7 @@ The following commands are based on the following entries in the ansible invento
 labvm1   ansible_host=192.168.56.10 ansible_port=22 ansible_ssh_private_key_file=~/.ssh/id_rsa
 labvm2   ansible_host=192.168.56.11 ansible_port=22 ansible_ssh_private_key_file=~/.ssh/id_rsa
 ```
+```
 $ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -m copy -a "src=/home/vagrant/share dest=/tmp/ansible_hosts"
 vmlab | CHANGED => {
     "ansible_facts": {
@@ -151,7 +152,8 @@ ansible-doc yum
 
 The following command demonstrates how to install the "epel-release" package with the "yum" module with different module arguments and under different remote user (your result may be differ from what is show below):
 
-[raymond.chan@mtrx-node02pd lab8]$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m yum -a "name=epel-release state=present"
+```
+$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m yum -a "name=epel-release state=present"
 vmlab | FAILED! => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -168,11 +170,11 @@ vmlab | FAILED! => {
         "Loaded plugins: fastestmirror\n"
     ]
 }
-
+```
 
 Add the '-b' option to tell ansible to invoke "sudo" when running the yum command on the remote machine:
-
-[raymond.chan@mtrx-node02pd lab8]$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=present"
+```
+$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=present"
 vmlab | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -189,11 +191,12 @@ vmlab | CHANGED => {
         "Loaded plugins: fastestmirror\nLoading mirror speeds from cached hostfile\n * base: mirror.netflash.net\n * extras: mirror.netflash.net\n * updates: mirror.calgah.com\nResolving Dependencies\n--> Running transaction check\n---> Package epel-release.noarch 0:7-11 will be installed\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package                Arch             Version         Repository        Size\n================================================================================\nInstalling:\n epel-release           noarch           7-11            extras            15 k\n\nTransaction Summary\n================================================================================\nInstall  1 Package\n\nTotal download size: 15 k\nInstalled size: 24 k\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : epel-release-7-11.noarch                                     1/1 \n  Verifying  : epel-release-7-11.noarch                                     1/1 \n\nInstalled:\n  epel-release.noarch 0:7-11                                                    \n\nComplete!\n"
     ]
 }
-
+```
 
 If you run the same command the 2nd time:
 
-[raymond.chan@mtrx-node02pd lab8]$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=present"
+```
+$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=present"
 vmlab | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -205,11 +208,12 @@ vmlab | SUCCESS => {
         "epel-release-7-11.noarch providing epel-release is already installed"
     ]
 }
-
+```
 
 Now run the similar command but with "state=latest":
 
-[raymond.chan@mtrx-node02pd lab8]$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=latest"
+```
+$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=latest"
 vmlab | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -226,11 +230,11 @@ vmlab | SUCCESS => {
         ""
     ]
 }
-
+```
 
 Depending on the status of the packages installed on your VM, the output may not exactly the same as shown above. Please read and try to understanding the meaning of the text return by ansible. If it's been updated instead, then run the command again.
 
-Part 4: Gather software and hardware information available on remote machine
+### Part 4: Gather software and hardware information available on remote machine
 One of the core ansible module is called "setup", it is automatically called by ansible playbook to gather useful "facts" about remote hosts that can be used in ansible playbooks. It can also be executed directly by the ansible command (/usr/bin/ansible) to check out what "facts" are available on a remote host.
 
 [raymond.chan@mtrx-node02pd lab8]$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m setup
@@ -265,7 +269,7 @@ vmlab | SUCCESS => {
 
 Click here for complete sample contents of the above
 
-Investigation 2: Ansible Playbook
+## Investigation 2: Ansible Playbook
 What is a playbook?
 Playbook is one of the core features of Ansible.
 Playbook tells Ansible what to execute by which user on the remote machine.

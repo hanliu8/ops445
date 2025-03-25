@@ -6,7 +6,7 @@
 4. Explore, create, and run a few Ansible playbooks
 
 ## Overview
-> Ansible is an agentless IT automation engine for automating cloud provisioning, configuration management, application deployment, intra-service orchestration, and many other IT system administration tasks.
+Ansible is an agentless IT automation engine for automating cloud provisioning, configuration management, application deployment, intra-service orchestration, and many other IT system administration tasks.
 
 Ansible uses no additional custom security infrastructure, and it uses a very simple human readable language called 'YAML', to compose an Ansible Playbook which allows you to describe the tasks you want to automate.
 
@@ -78,7 +78,7 @@ To confirm that you have access to the Ansible package, try the following comman
 
 ```
 $ ansible --help
-usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
+> usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
                [--become-user BECOME_USER] [-K] [-i INVENTORY] [--list-hosts]
                [-l SUBSET] [-P POLL_INTERVAL] [-B SECONDS] [-o] [-t TREE] [-k]
                [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER]

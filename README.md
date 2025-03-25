@@ -237,7 +237,8 @@ Depending on the status of the packages installed on your VM, the output may not
 ### Part 4: Gather software and hardware information available on remote machine
 One of the core ansible module is called "setup", it is automatically called by ansible playbook to gather useful "facts" about remote hosts that can be used in ansible playbooks. It can also be executed directly by the ansible command (/usr/bin/ansible) to check out what "facts" are available on a remote host.
 
-[raymond.chan@mtrx-node02pd lab8]$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m setup
+```
+$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m setup
 vmlab | SUCCESS => {
     "ansible_facts": {
         "ansible_all_ipv4_addresses": [
@@ -265,20 +266,22 @@ vmlab | SUCCESS => {
     }, 
     "changed": false
 }
-
+```
 
 Click here for complete sample contents of the above
 
 ## Investigation 2: Ansible Playbook
 What is a playbook?
-Playbook is one of the core features of Ansible.
-Playbook tells Ansible what to execute by which user on the remote machine.
-Playbook is like a to-do list for Ansible
-Playbook is written in "YAML".
-Playbook links a task to an ansible module and provide needed arguments to the module which requires them.
+- Playbook is one of the core features of Ansible.
+- Playbook tells Ansible what to execute by which user on the remote machine.
+- Playbook is like a to-do list for Ansible
+- Playbook is written in "YAML".
+- Playbook links a task to an ansible module and provide needed arguments to the module which requires them.
+
 ### Part 1: A playbook to update the /etc/motd file
 Name: motd-play.yml
 
+```
 $ cat motd-play.yml 
 ---
 - name: update motd file
@@ -293,7 +296,7 @@ $ cat motd-play.yml
       copy:
         dest: /etc/motd
         content: "{{ motd_warning }}"
-
+```
 Sample Run:
 
 ```
@@ -310,7 +313,7 @@ changed: [vmlab]
 PLAY RECAP ********************************************************************************
 vmlab   ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
-Try to run it the 2nd time and pay attention to the result. What conclusion can you draw?
+> Try to run it the 2nd time and pay attention to the result. What conclusion can you draw?
 
 ### Part 2: A playbook to install and start Apache Server
 Name: httpd-play.yml

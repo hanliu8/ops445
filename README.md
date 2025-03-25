@@ -16,11 +16,11 @@ Ansible uses no additional custom security infrastructure, and it uses a very si
  - Ansible Latest User Guide
  - A System Administrator's guide to getting started with Ansible
 ## System requirements
- - control machine Install Ansible on your Linux VM or use the Matrix server
- - managed machine(s) (your vm in myvmlab.senecapolytechnic) - to be managed by the control machine
+ - control machine Install Ansible on your Linux VM 
+ - managed machine(s) - to be managed by the control machine
 
-You should be able to ssh from your control machine as a regular user to your managed machine without supplying a login password.
-Your account on your managed machine is a sudoer and can run sudo with/without password.
+ - You should be able to ssh from your control machine as a regular user to your managed machine without supplying a login password.
+ - Your account on your managed machine is a sudoer and can run sudo with/without password.
 Investigation 1: The Ansible Package
 In this investigation, we explore the main components of the Ansible configuration management system and its operating environment. We also study a simple playbook for managing the configuration of a CentOS 7.x VM.
 

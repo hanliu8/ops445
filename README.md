@@ -36,7 +36,7 @@ export LC_COLLATE=C
 Once you comment out these lines (by placing a # symbol in front of them), run source ~/.bashrc and try again.
 
 ### Key Concepts when using Ansible
- - YAML - a human-readable data serialization language used by Ansible's playbooks. To know more, your can check out the wikipedia page here or a simple introduction here
+ - YAML - a human-readable data serialization language used by Ansible's playbooks. To know more, your can check out the [wikipedia page here](https://en.wikipedia.org/wiki/YAML) or a simple introduction here
 
  - Control machine - the host on which you use Ansible to execute tasks on the managed machines
 

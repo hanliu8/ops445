@@ -96,16 +96,15 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
 
 Take a look of all the available command line options for the "ansible" command. There are a lots of options when running Ansible. Let's move on to try a few simple ones.
 
-Part 2: Sample runs for some of the Ad hoc commands
+### Part 2: Sample runs for some of the Ad hoc commands
 The following commands are based on the following entries in the ansible inventory file called "hosts" in the current working directory:
 
 ```
 [ops445]
-vmlab   ansible_host=myvmlab.senecapolytechnic.ca ansible_port=7890
-myvm    ansible_host=myvmlab.senecapolytechnic.ca ansible_port=7654
+labvm1   ansible_host=192.168.56.10 ansible_port=22 ansible_ssh_private_key_file=~/.ssh/id_rsa
+labvm2   ansible_host=192.168.56.11 ansible_port=22 ansible_ssh_private_key_file=~/.ssh/id_rsa
 ```
-```
-$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m copy -a "src=/home/raymond.chan/ops445/lab8/hosts dest=/tmp/ansible_hosts"
+$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -m copy -a "src=/home/vagrant/share dest=/tmp/ansible_hosts"
 vmlab | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -125,28 +124,28 @@ vmlab | CHANGED => {
 }
 ```
 
-vmlab is the remote machine ID.
+*labvm1* is the remote machine ID.
 
-hosts is the name of the ansible inventory file in the current working directory, you may also specify the inventory file with full path name, e.g. /home/raymond.chan/ops445/lab8/hosts.
+*hosts* is the name of the ansible inventory file in the current working directory, you may also specify the inventory file with full path name, e.g. /home/raymond.chan/ops445/lab8/hosts.
 
---private-key id_rsa is the private key for ssh key-based authentication for connecting to the remote machine.
+*--private-key id_rsa* is the private key for ssh key-based authentication for connecting to the remote machine.
 
--u is for specifying the user account to be used to login to the remote machine.
+*-u* is for specifying the user account to be used to login to the remote machine.
 
--m copy is to tell ansible to use the "copy" module.
+*-m copy* is to tell ansible to use the "copy" module.
 
-after -a is the arguments to the copy module, which specify the source file and the destination for the copy action.
+after *-a* is the arguments to the copy module, which specify the source file and the destination for the copy action.
 
 If you got the same "SUCCESS" message, login to the remote machine and check the directory "/tmp" for the file ansible_hosts.
 
-Part 3: Sample runs for using some Ansible's modules
+### Part 3: Sample runs for using some Ansible's modules
 You can get a complete list of all the ansible modules installed on you system with the following command:
 
 ansible-doc --list_files
 
-"yum" is a stable ansible module. You can get the detail information about any ansible module with the ansible-doc, try the following commands to see the documentation and examples for using the copy and yum modules:
+"apt" is a stable ansible module. You can get the detail information about any ansible module with the ansible-doc, try the following commands to see the documentation and examples for using the copy and yum modules:
 
-ansible-doc copy
+`ansible-doc copy`
 
 ansible-doc yum
 

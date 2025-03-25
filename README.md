@@ -11,11 +11,11 @@ Ansible is an agentless IT automation engine for automating cloud provisioning, 
 Ansible uses no additional custom security infrastructure, and it uses a very simple human readable language called 'YAML', to compose an Ansible Playbook which allows you to describe the tasks you want to automate.
 
 ## Reference
-For more detail information about ansible, check out the ansible web site at www.ansible.com
-[] Overview on how [ansible works](https://www.redhat.com/en/ansible-collaborative/how-ansible-works?intcmp=7015Y000003t7aWQAQ)
-Ansible Latest User Guide
-A System Administrator's guide to getting started with Ansible
-System requirements
+ - For more detail information about ansible, check out the ansible web site at www.ansible.com
+ - Overview on how [ansible works](https://www.redhat.com/en/ansible-collaborative/how-ansible-works?intcmp=7015Y000003t7aWQAQ)
+ - Ansible Latest User Guide
+ - A System Administrator's guide to getting started with Ansible
+## System requirements
  - control machine Install Ansible on your Linux VM or use the Matrix server
  - managed machine(s) (your vm in myvmlab.senecapolytechnic) - to be managed by the control machine
 

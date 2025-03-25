@@ -58,10 +58,11 @@ ansible remote_machine_id [-i inventory] [--private-key id_rsa] [-u remote_user]
 ansible remote_machine_id -m copy -a "src=/ops445/ansible.txt dest=/tmp/ansible.txt"
 ```
    - Package management
-
-ansible remote_machine_id -m yum -a "name=epel-release state=latest"
- - Playbooks - contains one or multiple plays, each play defines a set of repeatable tasks on one or more managed machines. Playbooks are written in YAML. Every play in the playbook is created with environment-specific parameters for the target machines:
 ```bash
+ansible remote_machine_id -m yum -a "name=epel-release state=latest"
+```
+ - Playbooks - contains one or multiple plays, each play defines a set of repeatable tasks on one or more managed machines. Playbooks are written in YAML. Every play in the playbook is created with environment-specific parameters for the target machines:
+```
 ansible-playbook remote_machine_id [-i inventory] setup_webserver.yaml
 ansible-playbook remote_machine_id [-i inventory] firstrun.yaml
 ```
@@ -75,6 +76,7 @@ rpm -q ansible
 
 To confirm that you have access to the Ansible package, try the following command:
 
+```
 $ ansible --help
 usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
                [--become-user BECOME_USER] [-K] [-i INVENTORY] [--list-hosts]

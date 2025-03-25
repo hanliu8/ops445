@@ -21,48 +21,51 @@ Ansible uses no additional custom security infrastructure, and it uses a very si
 
  - You should be able to ssh from your control machine as a regular user to your managed machine without supplying a login password.
  - Your account on your managed machine is a sudoer and can run sudo with/without password.
-Investigation 1: The Ansible Package
+## Investigation 1: The Ansible Package
 In this investigation, we explore the main components of the Ansible configuration management system and its operating environment. We also study a simple playbook for managing the configuration of a CentOS 7.x VM.
 
 You need at least two Linux systems for this lab: your control machine and your assigned VM in myvmlab.senecapolytechnic.ca as the managed machine. The Ansible package is already installed on matrix for you.
 
-Important:
+### Important:
 If you decide to use Matrix for this lab, please note that you may get an Ansible error related to locale. In that case, check your .bashrc file. Please comment out the following lines:
 
-export LC_ALL=C
+```export LC_ALL=C
 export LC_COLLATE=C
+```
 
 Once you comment out these lines (by placing a # symbol in front of them), run source ~/.bashrc and try again.
 
-Key Concepts when using Ansible
-YAML - a human-readable data serialization language used by Ansible's playbooks. To know more, your can check out the wikipedia page here or a simple introduction here
+### Key Concepts when using Ansible
+ - YAML - a human-readable data serialization language used by Ansible's playbooks. To know more, your can check out the wikipedia page here or a simple introduction here
 
-Control machine - the host on which you use Ansible to execute tasks on the managed machines
+ - Control machine - the host on which you use Ansible to execute tasks on the managed machines
 
-Managed machine - a host that is configured by the control machine
+ - Managed machine - a host that is configured by the control machine
 
-Hosts file - contains information about machines to be managed - click here for sample hosts file
+ - Hosts file - contains information about machines to be managed - click here for sample hosts file
 
-Idempotency - is an operation that, if applied twice to any value, gives the same result as if it were applied once.
+ - Idempotency - is an operation that, if applied twice to any value, gives the same result as if it were applied once.
 
-Ad hoc commands - a simple one-off task:
+ - Ad hoc commands - a simple one-off task:
 
-shell commands
-
+ -- shell commands
+```bash
 ansible remote_machine_id [-i inventory] [--private-key id_rsa] [-u remote_user] -a 'date'
-Ansible modules - code that performs a particular task such as copy a file, installing a package, etc:
-
-copy module
+```
+ - Ansible modules - code that performs a particular task such as copy a file, installing a package, etc:
+-- copy module
 
 ansible remote_machine_id -m copy -a "src=/ops445/ansible.txt dest=/tmp/ansible.txt"
 Package management
 
 ansible remote_machine_id -m yum -a "name=epel-release state=latest"
-Playbooks - contains one or multiple plays, each play defines a set of repeatable tasks on one or more managed machines. Playbooks are written in YAML. Every play in the playbook is created with environment-specific parameters for the target machines:
-
+ - Playbooks - contains one or multiple plays, each play defines a set of repeatable tasks on one or more managed machines. Playbooks are written in YAML. Every play in the playbook is created with environment-specific parameters for the target machines:
+```bash
 ansible-playbook remote_machine_id [-i inventory] setup_webserver.yaml
 ansible-playbook remote_machine_id [-i inventory] firstrun.yaml
-Part 1: The Ansible package installed on matrix
+```
+
+### Part 1: The Ansible package installed on matrix
 You only need to have the "ansible" package on your control VM (i.e. matrix).
 
 Login to matrix with your Seneca account and change to the directory ~/ops445/lab8

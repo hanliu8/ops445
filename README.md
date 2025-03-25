@@ -126,7 +126,7 @@ vmlab | CHANGED => {
 
 *labvm1* is the remote machine ID.
 
-*hosts* is the name of the ansible inventory file in the current working directory, you may also specify the inventory file with full path name, e.g. /home/raymond.chan/ops445/lab8/hosts.
+** hosts ** is the name of the ansible inventory file in the current working directory, you may also specify the inventory file with full path name, e.g. /home/raymond.chan/ops445/lab8/hosts.
 
 *--private-key id_rsa* is the private key for ssh key-based authentication for connecting to the remote machine.
 

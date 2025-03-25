@@ -29,9 +29,10 @@ You need at least two Linux systems for this lab: your control machine and your 
 ### Important:
 If you decide to use Matrix for this lab, please note that you may get an Ansible error related to locale. In that case, check your .bashrc file. Please comment out the following lines:
 
-```export LC_ALL=C
-```export LC_COLLATE=C
-
+```bash
+export LC_ALL=C
+export LC_COLLATE=C
+```
 Once you comment out these lines (by placing a # symbol in front of them), run source ~/.bashrc and try again.
 
 ### Key Concepts when using Ansible

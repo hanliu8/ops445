@@ -12,7 +12,7 @@ Ansible uses no additional custom security infrastructure, and it uses a very si
 
 ## Reference
 For more detail information about ansible, check out the ansible web site at www.ansible.com
-Overview on how [ansible works](https://www.redhat.com/en/ansible-collaborative/how-ansible-works?intcmp=7015Y000003t7aWQAQ)
+[] Overview on how [ansible works](https://www.redhat.com/en/ansible-collaborative/how-ansible-works?intcmp=7015Y000003t7aWQAQ)
 Ansible Latest User Guide
 A System Administrator's guide to getting started with Ansible
 System requirements

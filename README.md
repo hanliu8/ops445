@@ -1,11 +1,12 @@
 # Lab 8: Ansible
 ## Objective
 
-Confirm and review the Ansible package installed on matrix.senecapolytechnic.ca
-Explore and run Ansible's ad hoc commands
-Explore and study a few Ansible's modules
-Explore, create, and run a few Ansible playbooks
-Overview
+1. Spin up a develop environment for Ansible
+2. Explore and run Ansible's ad hoc commands
+3. Explore and study a few Ansible's modules
+4. Explore, create, and run a few Ansible playbooks
+
+## Overview
 Ansible is an agentless IT automation engine for automating cloud provisioning, configuration management, application deployment, intra-service orchestration, and many other IT system administration tasks.
 
 Ansible uses no additional custom security infrastructure, and it uses a very simple human readable language called 'YAML', to compose an Ansible Playbook which allows you to describe the tasks you want to automate.

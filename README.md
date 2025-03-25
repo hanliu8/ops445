@@ -92,20 +92,20 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
                [-f FORKS] [-M MODULE_PATH] [--playbook-dir BASEDIR]
                [-a MODULE_ARGS] [-m MODULE_NAME]
                pattern
-...
+```
 
 Take a look of all the available command line options for the "ansible" command. There are a lots of options when running Ansible. Let's move on to try a few simple ones.
 
 Part 2: Sample runs for some of the Ad hoc commands
 The following commands are based on the following entries in the ansible inventory file called "hosts" in the current working directory:
 
-...
+```
 [ops445]
 vmlab   ansible_host=myvmlab.senecapolytechnic.ca ansible_port=7890
 myvm    ansible_host=myvmlab.senecapolytechnic.ca ansible_port=7654
-...
-
-[raymond.chan@mtrx-node02pd lab8]$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m copy -a "src=/home/raymond.chan/ops445/lab8/hosts dest=/tmp/ansible_hosts"
+```
+```
+$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m copy -a "src=/home/raymond.chan/ops445/lab8/hosts dest=/tmp/ansible_hosts"
 vmlab | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -123,7 +123,7 @@ vmlab | CHANGED => {
     "state": "file", 
     "uid": 1003
 }
-
+```
 
 vmlab is the remote machine ID.
 

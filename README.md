@@ -29,7 +29,7 @@ You need at least two Linux systems for this lab: your control machine and your 
 ### Important:
 If you decide to use Matrix for this lab, please note that you may get an Ansible error related to locale. In that case, check your .bashrc file. Please comment out the following lines:
 
-```bash
+```
 export LC_ALL=C
 export LC_COLLATE=C
 ```
@@ -47,11 +47,13 @@ Once you comment out these lines (by placing a # symbol in front of them), run s
  - Idempotency - is an operation that, if applied twice to any value, gives the same result as if it were applied once.
 
  - Ad hoc commands - a simple one-off task:
+
    - shell commands
 ```bash
 ansible remote_machine_id [-i inventory] [--private-key id_rsa] [-u remote_user] -a 'date'
 ```
  - Ansible modules - code that performs a particular task such as copy a file, installing a package, etc:
+
    - copy module
 
 ```bash

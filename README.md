@@ -47,7 +47,6 @@ Once you comment out these lines (by placing a # symbol in front of them), run s
  - Idempotency - is an operation that, if applied twice to any value, gives the same result as if it were applied once.
 
  - Ad hoc commands - a simple one-off task:
-
    - shell commands
 ```bash
 ansible remote_machine_id [-i inventory] [--private-key id_rsa] [-u remote_user] -a 'date'
@@ -56,7 +55,8 @@ ansible remote_machine_id [-i inventory] [--private-key id_rsa] [-u remote_user]
    - copy module
 
 ```bash
-ansible remote_machine_id -m copy -a "src=/ops445/ansible.txt dest=/tmp/ansible.txt"```
+ansible remote_machine_id -m copy -a "src=/ops445/ansible.txt dest=/tmp/ansible.txt"
+```
    - Package management
 
 ansible remote_machine_id -m yum -a "name=epel-release state=latest"

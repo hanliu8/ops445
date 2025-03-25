@@ -78,7 +78,7 @@ To confirm that you have access to the Ansible package, try the following comman
 
 ```
 $ ansible --help
-> usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
+usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
                [--become-user BECOME_USER] [-K] [-i INVENTORY] [--list-hosts]
                [-l SUBSET] [-P POLL_INTERVAL] [-B SECONDS] [-o] [-t TREE] [-k]
                [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER]
@@ -193,7 +193,7 @@ vmlab | CHANGED => {
 }
 ```
 
-If you run the same command the 2nd time:
+> If you run the same command the 2nd time:
 
 ```
 $ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=present"

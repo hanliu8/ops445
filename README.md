@@ -125,17 +125,17 @@ vmlab | CHANGED => {
 }
 ```
 
-*labvm1* is the remote machine ID.
+**labvm1** is the remote machine ID.
 
-** hosts ** is the name of the ansible inventory file in the current working directory, you may also specify the inventory file with full path name, e.g. /home/raymond.chan/ops445/lab8/hosts.
+**hosts** is the name of the ansible inventory file in the current working directory, you may also specify the inventory file with full path name, e.g. /home/raymond.chan/ops445/lab8/hosts.
 
-*--private-key id_rsa* is the private key for ssh key-based authentication for connecting to the remote machine.
+**--private-key id_rsa** is the private key for ssh key-based authentication for connecting to the remote machine.
 
-*-u* is for specifying the user account to be used to login to the remote machine.
+**-u** is for specifying the user account to be used to login to the remote machine.
 
-*-m copy* is to tell ansible to use the "copy" module.
+**-m copy** is to tell ansible to use the "copy" module.
 
-after *-a* is the arguments to the copy module, which specify the source file and the destination for the copy action.
+after **-a** is the arguments to the copy module, which specify the source file and the destination for the copy action.
 
 If you got the same "SUCCESS" message, login to the remote machine and check the directory "/tmp" for the file ansible_hosts.
 
@@ -144,7 +144,7 @@ You can get a complete list of all the ansible modules installed on you system w
 
 ansible-doc --list_files
 
-"apt" is a stable ansible module. You can get the detail information about any ansible module with the ansible-doc, try the following commands to see the documentation and examples for using the copy and yum modules:
+**"apt"** is a stable ansible module. You can get the detail information about any ansible module with the ansible-doc, try the following commands to see the documentation and examples for using the copy and yum modules:
 
 `ansible-doc copy`
 

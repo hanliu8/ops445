@@ -13,8 +13,8 @@ Ansible uses no additional custom security infrastructure, and it uses a very si
 ## Reference
  - For more detail information about ansible, check out the ansible web site at www.ansible.com
  - Overview on how [ansible works](https://www.redhat.com/en/ansible-collaborative/how-ansible-works?intcmp=7015Y000003t7aWQAQ)
- - Ansible Latest User Guide
- - A System Administrator's guide to getting started with Ansible
+ - [Ansible Latest User Guide](https://docs.ansible.com/ansible/latest/user_guide/index.html)
+ - [A System Administrator's guide to getting started with Ansible](https://www.redhat.com/en/blog/system-administrators-guide-getting-started-ansible-fast)
 ## System requirements
  - control machine Install Ansible on your Linux VM 
  - managed machine(s) - to be managed by the control machine

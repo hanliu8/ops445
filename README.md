@@ -30,8 +30,7 @@ You need at least two Linux systems for this lab: your control machine and your 
 If you decide to use Matrix for this lab, please note that you may get an Ansible error related to locale. In that case, check your .bashrc file. Please comment out the following lines:
 
 ```export LC_ALL=C
-export LC_COLLATE=C
-```
+```export LC_COLLATE=C
 
 Once you comment out these lines (by placing a # symbol in front of them), run source ~/.bashrc and try again.
 
@@ -55,8 +54,9 @@ ansible remote_machine_id [-i inventory] [--private-key id_rsa] [-u remote_user]
  - Ansible modules - code that performs a particular task such as copy a file, installing a package, etc:
    - copy module
 
-ansible remote_machine_id -m copy -a "src=/ops445/ansible.txt dest=/tmp/ansible.txt"
-- Package management
+```bash
+ansible remote_machine_id -m copy -a "src=/ops445/ansible.txt dest=/tmp/ansible.txt"```
+   - Package management
 
 ansible remote_machine_id -m yum -a "name=epel-release state=latest"
  - Playbooks - contains one or multiple plays, each play defines a set of repeatable tasks on one or more managed machines. Playbooks are written in YAML. Every play in the playbook is created with environment-specific parameters for the target machines:
@@ -66,7 +66,7 @@ ansible-playbook remote_machine_id [-i inventory] firstrun.yaml
 ```
 
 ### Part 1: The Ansible package installed on matrix
-You only need to have the "ansible" package on your control VM (i.e. matrix).
+You only need to have the "ansible" package on your control VM.
 
 Login to matrix with your Seneca account and change to the directory ~/ops445/lab8
 Issue the following command to check the version of the "ansible" package:
@@ -74,7 +74,7 @@ rpm -q ansible
 
 To confirm that you have access to the Ansible package, try the following command:
 
-[raymond.chan@mtrx-node02pd lab8]$ ansible --help
+$ ansible --help
 usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
                [--become-user BECOME_USER] [-K] [-i INVENTORY] [--list-hosts]
                [-l SUBSET] [-P POLL_INTERVAL] [-B SECONDS] [-o] [-t TREE] [-k]

@@ -28,11 +28,36 @@ download the Oracle VirtualBox installation for Windows
 ```
 curl https://download.virtualbox.org/virtualbox/7.1.6/VirtualBox-7.1.6-167084-Win.exe -o VirtualBox-7.1.6-167084-Win.exe
 ```
-run the installation file from command line with administrative permission
+run the installation file from command line with administrative permission and follow the prompt to complete installation
 ```
 VirtualBox-7.1.6-167084-Win.exe
 ```
-Follow the prompt to complete installation
+verify your installation by launch the VirtualBox from Startup menu
+
+### Install Vagrant 
+download Vagrant installation package for Windows
+```
+curl https://releases.hashicorp.com/vagrant/2.4.3/vagrant_2.4.3_windows_amd64.msi -o vagrant_2.4.3_windows_amd64.msi
+```
+run the installation from command line with administrative permission and follow the prompt to complete installation (You may be required to restart your machine)
+```
+msiexec.exe /i "vagrant_2.4.3_windows_amd64.msi"
+```
+verify the installation from command prompt
+```
+vagrant --version
+```
+
+### provision VMs
+create a project directory
+```
+mkdir -p C:\vagrant\ops445
+```
+change to the newly created directory and download the configuration files
+```
+cd C:\vagrant\ops445
+
+```
 
 
 ## Investigation 1: The Ansible Package

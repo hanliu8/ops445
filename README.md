@@ -46,8 +46,10 @@ msiexec.exe /i "vagrant_2.4.3_windows_amd64.msi"
 verify the installation from command prompt
 ```
 vagrant --version
+
+Vagrant 2.4.3
 ```
-'''Vagrant 2.4.3'''
+> Vagrant 2.4.3
 
 ### Provision VMs
 create a project directory

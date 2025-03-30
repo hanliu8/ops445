@@ -71,31 +71,30 @@ ping -c 3 192.168.56.10
 ping -c 3 192.168.56.11
 ```
 once verified the VMs accessible, generate ssh rsa key pairs
+**Answer: _'yes'_, and password: _'vagrant'_ all lower case** 
 ```
 ssh-keygen -t rsa -b 4096
 ssh-copyid vagrant@192.168.56.10
 ssh-copyid vagrant@192.168.56.11
 ```
-verify the ssh connection to the two VMs ( __respond with 'yes', and password is 'vagrant' all lower case __ )
+verify the ssh connection to the two VMs 
+**Should not prompt for password**
 ```
-ssh 192.168.56.10
-ssh 192.168.56.10
+ssh vagrant@192.168.56.10
+ssh vagrant@192.168.56.10
 ```
-
+verify Ansible installed
+```
+ansible --version
+```
 
 ## Investigation 1: The Ansible Package
-In this investigation, we explore the main components of the Ansible configuration management system and its operating environment. We also study a simple playbook for managing the configuration of a CentOS 7.x VM.
+In this investigation, we explore the main components of the Ansible configuration management system and its operating environment. We also study a simple playbook for managing the configuration.
 
-You need at least two Linux systems for this lab: your control machine and your assigned VM in myvmlab.senecapolytechnic.ca as the managed machine. The Ansible package is already installed on matrix for you.
+You have three Linux systems for this lab: one control machine and two VMs as the managed machine. 
 
 ### Important:
-If you decide to use Matrix for this lab, please note that you may get an Ansible error related to locale. In that case, check your .bashrc file. Please comment out the following lines:
-
-```
-export LC_ALL=C
-export LC_COLLATE=C
-```
-Once you comment out these lines (by placing a # symbol in front of them), run source ~/.bashrc and try again.
+If you decide to use Matrix for this lab, please follow the steps [here[(https://seneca-ictoer.github.io/OPS445/A-Labs/lab8)
 
 ### Key Concepts when using Ansible
  - YAML - a human-readable data serialization language used by Ansible's playbooks. To know more, your can check out the [wikipedia page here](https://en.wikipedia.org/wiki/YAML) or a simple introduction here

@@ -57,8 +57,8 @@ mkdir -p C:\vagrant\ops445
 change to the newly created directory and download the configuration files
 ```
 cd C:\vagrant\ops445
-https://github.com/hanliu8/ops445/blob/main/Vagrantfile
-https://github.com/hanliu8/ops445/blob/main/common-dependencies.sh
+curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/Vagrantfile?token=GHSAT0AAAAAADBB3LJTTT4SUPAJA7UHTAOCZ7J2SVA -o Vagrantfile
+curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/common-dependencies.sh?token=GHSAT0AAAAAADBB3LJSUFUP4YZMXQLHTA46Z7J2TSQ -o common-dependencies.sh
 vagrant up
 ```
 once the vagrant completes provisioning VMs, launch the Oracle VirtualBox to verify 3 VMs up and running
@@ -87,6 +87,10 @@ verify Ansible installed
 ```
 ansible --version
 ```
+download the sample inventory file
+```
+curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/hosts?token=GHSAT0AAAAAADBB3LJSQ3OEKR54L66SWI2KZ7J2O6A -o hosts
+```
 
 ## Investigation 1: The Ansible Package
 In this investigation, we explore the main components of the Ansible configuration management system and its operating environment. We also study a simple playbook for managing the configuration.
@@ -94,7 +98,7 @@ In this investigation, we explore the main components of the Ansible configurati
 You have three Linux systems for this lab: one control machine and two VMs as the managed machine. 
 
 ### Important:
-If you decide to use Matrix for this lab, please follow the steps [here[(https://seneca-ictoer.github.io/OPS445/A-Labs/lab8)
+If you decide to use Matrix for this lab, please follow the steps [here](https://seneca-ictoer.github.io/OPS445/A-Labs/lab8)
 
 ### Key Concepts when using Ansible
  - YAML - a human-readable data serialization language used by Ansible's playbooks. To know more, your can check out the [wikipedia page here](https://en.wikipedia.org/wiki/YAML) or a simple introduction here

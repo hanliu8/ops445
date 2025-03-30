@@ -47,6 +47,8 @@ verify the installation from command prompt
 ```
 vagrant --version
 ```
+` Vagrant 2.4.3
+`
 
 ### Provision VMs
 create a project directory
@@ -58,6 +60,14 @@ change to the newly created directory and download the configuration files
 cd C:\vagrant\ops445
 https://github.com/hanliu8/ops445/blob/main/Vagrantfile
 https://github.com/hanliu8/ops445/blob/main/common-dependencies.sh
+vagrant up
+```
+once the vagrant completes provisioning VMs, launch the Oracle VirtualBox to verify 3 VMs up and running
+
+### Configure Ansible
+connect to control node
+```
+vagrant ssh control-center
 ```
 
 

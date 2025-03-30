@@ -76,7 +76,7 @@ ssh-keygen -t rsa -b 4096
 ssh-copyid vagrant@192.168.56.10
 ssh-copyid vagrant@192.168.56.11
 ```
-verify the ssh connection to the two VMs (** respond with 'yes', and password is 'vagrant' all lower case **)
+verify the ssh connection to the two VMs ( ** respond with 'yes', and password is 'vagrant' all lower case ** )
 ```
 ssh 192.168.56.10
 ssh 192.168.56.10

@@ -48,7 +48,7 @@ verify the installation from command prompt
 vagrant --version
 ```
 
-### provision VMs
+### Provision VMs
 create a project directory
 ```
 mkdir -p C:\vagrant\ops445
@@ -56,7 +56,8 @@ mkdir -p C:\vagrant\ops445
 change to the newly created directory and download the configuration files
 ```
 cd C:\vagrant\ops445
-
+https://github.com/hanliu8/ops445/blob/main/Vagrantfile
+https://github.com/hanliu8/ops445/blob/main/common-dependencies.sh
 ```
 
 

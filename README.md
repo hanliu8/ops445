@@ -137,10 +137,6 @@ ansible-playbook remote_machine_id [-i inventory] firstrun.yaml
 ### Part 1: The Ansible package installed on matrix
 You only need to have the "ansible" package on your control VM.
 
-Login to matrix with your Seneca account and change to the directory ~/ops445/lab8
-Issue the following command to check the version of the "ansible" package:
-rpm -q ansible
-
 To confirm that you have access to the Ansible package, try the following command:
 
 ```
@@ -167,12 +163,13 @@ Take a look of all the available command line options for the "ansible" command.
 The following commands are based on the following entries in the ansible inventory file called "hosts" in the current working directory:
 
 ```
-[ops445]
 labvm1   ansible_host=192.168.56.10 ansible_port=22 ansible_ssh_private_key_file=~/.ssh/id_rsa
+
+[webservers]
 labvm2   ansible_host=192.168.56.11 ansible_port=22 ansible_ssh_private_key_file=~/.ssh/id_rsa
 ```
 ```
-$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -m copy -a "src=/home/vagrant/share dest=/tmp/ansible_hosts"
+$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -m copy -a "src=/home/vagrant/hosts dest=/tmp/ansible_hosts"
 vmlab | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -215,12 +212,12 @@ ansible-doc --list_files
 
 `ansible-doc copy`
 
-ansible-doc yum
+ansible-doc apt
 
 The following command demonstrates how to install the "epel-release" package with the "yum" module with different module arguments and under different remote user (your result may be differ from what is show below):
 
 ```
-$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m yum -a "name=epel-release state=present"
+$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u instructor -m yum -a "name=epel-release state=present"
 vmlab | FAILED! => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"

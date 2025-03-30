@@ -22,14 +22,18 @@ Ansible uses no additional custom security infrastructure, and it uses a very si
  - You should be able to ssh from your control machine as a regular user to your managed machine without supplying a login password.
  - Your account on your managed machine is a sudoer and can run sudo with/without password.
 ## Development Environment Setup
-Install Oracle VirtualBox
+### Install Oracle VirtualBox
+
+download the Oracle VirtualBox installation for Windows
 ```
 curl https://download.virtualbox.org/virtualbox/7.1.6/VirtualBox-7.1.6-167084-Win.exe -o VirtualBox-7.1.6-167084-Win.exe
 ```
-
+run the installation file from command line with administrative permission
 ```
 VirtualBox-7.1.6-167084-Win.exe
 ```
+Follow the prompt to complete installation
+
 
 ## Investigation 1: The Ansible Package
 In this investigation, we explore the main components of the Ansible configuration management system and its operating environment. We also study a simple playbook for managing the configuration of a CentOS 7.x VM.

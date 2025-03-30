@@ -46,8 +46,6 @@ msiexec.exe /i "vagrant_2.4.3_windows_amd64.msi"
 verify the installation from command prompt
 ```
 vagrant --version
-
-> Vagrant 2.4.3
 ```
 > Vagrant 2.4.3
 
@@ -69,6 +67,19 @@ once the vagrant completes provisioning VMs, launch the Oracle VirtualBox to ver
 connect to control node
 ```
 vagrant ssh control-center
+ping -c 3 192.168.56.10
+ping -c 3 192.168.56.11
+```
+once verified the VMs accessible, generate ssh rsa key pairs
+```
+ssh-keygen -t rsa -b 4096
+ssh-copyid vagrant@192.168.56.10
+ssh-copyid vagrant@192.168.56.11
+```
+verify the ssh connection to the two VMs (** respond with 'yes', and password is 'vagrant' all lower case **)
+```
+ssh 192.168.56.10
+ssh 192.168.56.10
 ```
 
 

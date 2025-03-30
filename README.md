@@ -47,7 +47,7 @@ verify the installation from command prompt
 ```
 vagrant --version
 
-Vagrant 2.4.3
+> Vagrant 2.4.3
 ```
 > Vagrant 2.4.3
 

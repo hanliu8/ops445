@@ -217,83 +217,24 @@ ansible-doc apt
 The following command demonstrates how to install the "epel-release" package with the "yum" module with different module arguments and under different remote user (your result may be differ from what is show below):
 
 ```
-$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u instructor -m yum -a "name=epel-release state=present"
-vmlab | FAILED! => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    }, 
-    "changed": false, 
-    "changes": {
-        "installed": [
-            "epel-release"
-        ]
-    }, 
-    "msg": "You need to be root to perform this command.\n", 
-    "rc": 1, 
-    "results": [
-        "Loaded plugins: fastestmirror\n"
-    ]
-}
+$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -m apt -a "name=software-properties-common state=present"
 ```
 
 Add the '-b' option to tell ansible to invoke "sudo" when running the yum command on the remote machine:
 ```
-$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=present"
-vmlab | CHANGED => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    }, 
-    "changed": true, 
-    "changes": {
-        "installed": [
-            "epel-release"
-        ]
-    }, 
-    "msg": "", 
-    "rc": 0, 
-    "results": [
-        "Loaded plugins: fastestmirror\nLoading mirror speeds from cached hostfile\n * base: mirror.netflash.net\n * extras: mirror.netflash.net\n * updates: mirror.calgah.com\nResolving Dependencies\n--> Running transaction check\n---> Package epel-release.noarch 0:7-11 will be installed\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package                Arch             Version         Repository        Size\n================================================================================\nInstalling:\n epel-release           noarch           7-11            extras            15 k\n\nTransaction Summary\n================================================================================\nInstall  1 Package\n\nTotal download size: 15 k\nInstalled size: 24 k\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : epel-release-7-11.noarch                                     1/1 \n  Verifying  : epel-release-7-11.noarch                                     1/1 \n\nInstalled:\n  epel-release.noarch 0:7-11                                                    \n\nComplete!\n"
-    ]
-}
+$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m -a "name=software-properties-common state=present"
 ```
 
 > If you run the same command the 2nd time:
 
 ```
 $ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=present"
-vmlab | SUCCESS => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    }, 
-    "changed": false, 
-    "msg": "", 
-    "rc": 0, 
-    "results": [
-        "epel-release-7-11.noarch providing epel-release is already installed"
-    ]
-}
 ```
 
 Now run the similar command but with "state=latest":
 
 ```
 $ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=latest"
-vmlab | SUCCESS => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    }, 
-    "changed": false, 
-    "changes": {
-        "installed": [], 
-        "updated": []
-    }, 
-    "msg": "", 
-    "rc": 0, 
-    "results": [
-        "All packages providing epel-release are up to date", 
-        ""
-    ]
-}
 ```
 
 Depending on the status of the packages installed on your VM, the output may not exactly the same as shown above. Please read and try to understanding the meaning of the text return by ansible. If it's been updated instead, then run the command again.

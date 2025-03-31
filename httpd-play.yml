@@ -1,0 +1,16 @@
+---
+- hosts: [webservers]
+  user: vagrant
+  become: yes
+  vars:
+    apache_version: 2.6
+    motd_warning: "WARNING: used by ICT faculty/students only.\n"
+    testserver: yes
+  tasks:
+    - name: Install Apache
+      action: apt name=httpd state=installed
+    
+    - name: restart Apache
+      service: 
+        name: httpd
+        state: restarted

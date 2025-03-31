@@ -243,6 +243,7 @@ labvm1 | FAILED! => {
 **"E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)",** indicates permission denied because the package installation requires elevated permission.
 
 Add the '-b' option to tell ansible to invoke "sudo" when running the apt command on the remote machine:
+<details>
 ```
 $  ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m apt -a "name=apache2 state=present"
 
@@ -409,7 +410,7 @@ labvm1 | CHANGED => {
     ]
 }
 ```
-
+</details>
 > If you run the same command the 2nd time:
 ```
 $ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m apt -a "name=apache2 state=present"

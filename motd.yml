@@ -1,7 +1,7 @@
 ---
 - name: update motd file
-  hosts: vmlab
-  user: instructor
+  hosts: ungrouped
+  user: vagrant
   vars:
     apache_version: 2.6
     motd_warning: "WARNING: used by ICT faculty/students only.\n"

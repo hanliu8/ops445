@@ -70,13 +70,15 @@ ping -c 3 192.168.56.10
 ping -c 3 192.168.56.11
 ```
 once verified the VMs accessible, generate ssh rsa key pairs
+
 **Answer: _'yes'_, and password: _'vagrant'_ all lower case** 
 ```
 ssh-keygen -t rsa -b 4096
-ssh-copyid vagrant@192.168.56.10
-ssh-copyid vagrant@192.168.56.11
+ssh-copy-id vagrant@192.168.56.10
+ssh-copy-id vagrant@192.168.56.11
 ```
 verify the ssh connection to the two VMs 
+
 **Should not prompt for password**
 ```
 ssh vagrant@192.168.56.10

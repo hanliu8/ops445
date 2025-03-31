@@ -1543,7 +1543,7 @@ labvm2                     : ok=3    changed=2    unreachable=0    failed=0    s
 ```
 
 ## Investigation 3: Using Playbook to configure an OPS445 Linux VM machine
-Assume you have just installed the latest version of CentOS 7.x on a VM with GNOME Desktop. You need to configure it so that you can use it for doing the Labs for OPS445.
+Assume you have just provisioned Linux VMs.
 
 Study the documentation and examples of following ansible modules:
 

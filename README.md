@@ -240,7 +240,7 @@ labvm1 | FAILED! => {
     "stdout_lines": []
 }
 ```
-**"E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)",** indicates permission denied.
+**"E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)",** indicates permission denied because the package installation requires elevated permission.
 
 Add the '-b' option to tell ansible to invoke "sudo" when running the apt command on the remote machine:
 ```
@@ -412,6 +412,7 @@ labvm1 | CHANGED => {
 > If you run the same command the 2nd time:
 ```
 $ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m apt -a "name=apache2 state=present"
+<details>
 [WARNING]: Platform linux on host labvm1 is using the discovered Python interpreter at
 /usr/bin/python3.12, but future installation of another Python interpreter could change the
 meaning of that path. See https://docs.ansible.com/ansible-
@@ -445,6 +446,7 @@ labvm1 | SUCCESS => {
     "cache_updated": false,
     "changed": false
 }
+</details>
 ```
 The warning message dispeared.
 

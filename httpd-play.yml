@@ -7,12 +7,12 @@
     motd_warning: "WARNING: used by ICT faculty/students only.\n"
     testserver: yes
   tasks:
-    - name: Install Apache
+    - name: Install Apache web service
       apt:
         name: apache2
         state: present
     
-    - name: restart Apache
+    - name: restart Apache service
       service: 
         name: apache2
         state: restarted

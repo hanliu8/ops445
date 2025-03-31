@@ -7,7 +7,7 @@
     motd_warning: "WARNING: used by ICT faculty/students only.\n"
     testserver: yes
   tasks:
-    - name: setup a MOTD
+    - name: setup a Message Of The Day
       copy:
         dest: /etc/motd
         content: "{{ motd_warning }}"

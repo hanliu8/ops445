@@ -135,7 +135,7 @@ ansible-playbook remote_machine_id [-i inventory] setup_webserver.yaml
 ansible-playbook remote_machine_id [-i inventory] firstrun.yaml
 ```
 
-### Part 1: The Ansible package installed on matrix
+### Part 1: The Ansible package installed
 You only need to have the "ansible" package on your control VM.
 
 To confirm that you have access to the Ansible package, try the following command:

@@ -8,7 +8,9 @@
     testserver: yes
   tasks:
     - name: Install Apache
-      action: apt name=httpd state=present
+      apt:
+        name: httpd
+        state: present
     
     - name: restart Apache
       service: 

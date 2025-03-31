@@ -217,7 +217,7 @@ ansible-doc apt
 The following command demonstrates how to install the "epel-release" package with the "yum" module with different module arguments and under different remote user (your result may be differ from what is show below):
 
 ```
-$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -m apt -a "name=httpd state=present"
+$ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -m apt -a "name=apache2 state=present"
 [WARNING]: Platform linux on host labvm1 is using the discovered Python interpreter at
 /usr/bin/python3.12, but future installation of another Python interpreter could change the
 meaning of that path. See https://docs.ansible.com/ansible-
@@ -229,34 +229,224 @@ labvm1 | FAILED! => {
     "cache_update_time": 1743374086,
     "cache_updated": false,
     "changed": false,
-    "msg": "'/usr/bin/apt-get -y -o \"Dpkg::Options::=--force-confdef\" -o \"Dpkg::Options::=--force-confold\"       install 'httpd'' failed: E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\nE: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?\n",
+    "msg": "'/usr/bin/apt-get -y -o \"Dpkg::Options::=--force-confdef\" -o \"Dpkg::Options::=--force-confold\"       install 'apache2=2.4.58-1ubuntu8.5'' failed: E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\nE: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?\n",
     "rc": 100,
     "stderr": "E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\nE: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?\n",
     "stderr_lines": [
-        **"E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)",**
+        "E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)",
         "E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?"
     ],
     "stdout": "",
     "stdout_lines": []
 }
 ```
+**"E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)",** indicates permission denied.
 
-Add the '-b' option to tell ansible to invoke "sudo" when running the yum command on the remote machine:
+Add the '-b' option to tell ansible to invoke "sudo" when running the apt command on the remote machine:
 ```
-$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m -a "name=software-properties-common state=present"
+$  ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m apt -a "name=apache2 state=present"
+[WARNING]: Platform linux on host labvm1 is using the discovered Python interpreter at
+/usr/bin/python3.12, but future installation of another Python interpreter could change the
+meaning of that path. See https://docs.ansible.com/ansible-
+core/2.17/reference_appendices/interpreter_discovery.html for more information.
+labvm1 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3.12"
+    },
+    "cache_update_time": 1743374086,
+    "cache_updated": false,
+    "changed": true,
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nThe following additional packages will be installed:\n  apache2-bin apache2-data apache2-utils libapr1t64 libaprutil1-dbd-sqlite3\n  libaprutil1-ldap libaprutil1t64 liblua5.4-0 ssl-cert\nSuggested packages:\n  apache2-doc apache2-suexec-pristine | apache2-suexec-custom www-browser\nThe following NEW packages will be installed:\n  apache2 apache2-bin apache2-data apache2-utils libapr1t64\n  libaprutil1-dbd-sqlite3 libaprutil1-ldap libaprutil1t64 liblua5.4-0 ssl-cert\n0 upgraded, 10 newly installed, 0 to remove and 120 not upgraded.\nNeed to get 2084 kB of archives.\nAfter this operation, 8094 kB of additional disk space will be used.\nGet:1 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 libapr1t64 amd64 1.7.2-3.1ubuntu0.1 [108 kB]\nGet:2 http://us.archive.ubuntu.com/ubuntu noble/main amd64 libaprutil1t64 amd64 1.6.3-1.1ubuntu7 [91.9 kB]\nGet:3 http://us.archive.ubuntu.com/ubuntu noble/main amd64 libaprutil1-dbd-sqlite3 amd64 1.6.3-1.1ubuntu7 [11.2 kB]\nGet:4 http://us.archive.ubuntu.com/ubuntu noble/main amd64 libaprutil1-ldap amd64 1.6.3-1.1ubuntu7 [9116 B]\nGet:5 http://us.archive.ubuntu.com/ubuntu noble/main amd64 liblua5.4-0 amd64 5.4.6-3build2 [166 kB]\nGet:6 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 apache2-bin amd64 2.4.58-1ubuntu8.5 [1329 kB]\nGet:7 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 apache2-data all 2.4.58-1ubuntu8.5 [163 kB]\nGet:8 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 apache2-utils amd64 2.4.58-1ubuntu8.5 [97.1 kB]\nGet:9 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 apache2 amd64 2.4.58-1ubuntu8.5 [90.2 kB]\nGet:10 http://us.archive.ubuntu.com/ubuntu noble/main amd64 ssl-cert all 1.1.2ubuntu1 [17.8 kB]\nPreconfiguring packages ...\nFetched 2084 kB in 1s (2086 kB/s)\nSelecting previously unselected package libapr1t64:amd64.\r\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 124309 files and directories currently installed.)\r\nPreparing to unpack .../0-libapr1t64_1.7.2-3.1ubuntu0.1_amd64.deb ...\r\nUnpacking libapr1t64:amd64 (1.7.2-3.1ubuntu0.1) ...\r\nSelecting previously unselected package libaprutil1t64:amd64.\r\nPreparing to unpack .../1-libaprutil1t64_1.6.3-1.1ubuntu7_amd64.deb ...\r\nUnpacking libaprutil1t64:amd64 (1.6.3-1.1ubuntu7) ...\r\nSelecting previously unselected package libaprutil1-dbd-sqlite3:amd64.\r\nPreparing to unpack .../2-libaprutil1-dbd-sqlite3_1.6.3-1.1ubuntu7_amd64.deb ...\r\nUnpacking libaprutil1-dbd-sqlite3:amd64 (1.6.3-1.1ubuntu7) ...\r\nSelecting previously unselected package libaprutil1-ldap:amd64.\r\nPreparing to unpack .../3-libaprutil1-ldap_1.6.3-1.1ubuntu7_amd64.deb ...\r\nUnpacking libaprutil1-ldap:amd64 (1.6.3-1.1ubuntu7) ...\r\nSelecting previously unselected package liblua5.4-0:amd64.\r\nPreparing to unpack .../4-liblua5.4-0_5.4.6-3build2_amd64.deb ...\r\nUnpacking liblua5.4-0:amd64 (5.4.6-3build2) ...\r\nSelecting previously unselected package apache2-bin.\r\nPreparing to unpack .../5-apache2-bin_2.4.58-1ubuntu8.5_amd64.deb ...\r\nUnpacking apache2-bin (2.4.58-1ubuntu8.5) ...\r\nSelecting previously unselected package apache2-data.\r\nPreparing to unpack .../6-apache2-data_2.4.58-1ubuntu8.5_all.deb ...\r\nUnpacking apache2-data (2.4.58-1ubuntu8.5) ...\r\nSelecting previously unselected package apache2-utils.\r\nPreparing to unpack .../7-apache2-utils_2.4.58-1ubuntu8.5_amd64.deb ...\r\nUnpacking apache2-utils (2.4.58-1ubuntu8.5) ...\r\nSelecting previously unselected package apache2.\r\nPreparing to unpack .../8-apache2_2.4.58-1ubuntu8.5_amd64.deb ...\r\nUnpacking apache2 (2.4.58-1ubuntu8.5) ...\r\nSelecting previously unselected package ssl-cert.\r\nPreparing to unpack .../9-ssl-cert_1.1.2ubuntu1_all.deb ...\r\nUnpacking ssl-cert (1.1.2ubuntu1) ...\r\nSetting up ssl-cert (1.1.2ubuntu1) ...\r\nCreated symlink /etc/systemd/system/multi-user.target.wants/ssl-cert.service → /usr/lib/systemd/system/ssl-cert.service.\r\r\nSetting up libapr1t64:amd64 (1.7.2-3.1ubuntu0.1) ...\r\nSetting up liblua5.4-0:amd64 (5.4.6-3build2) ...\r\nSetting up apache2-data (2.4.58-1ubuntu8.5) ...\r\nSetting up libaprutil1t64:amd64 (1.6.3-1.1ubuntu7) ...\r\nSetting up libaprutil1-ldap:amd64 (1.6.3-1.1ubuntu7) ...\r\nSetting up libaprutil1-dbd-sqlite3:amd64 (1.6.3-1.1ubuntu7) ...\r\nSetting up apache2-utils (2.4.58-1ubuntu8.5) ...\r\nSetting up apache2-bin (2.4.58-1ubuntu8.5) ...\r\nSetting up apache2 (2.4.58-1ubuntu8.5) ...\r\nEnabling module mpm_event.\r\nEnabling module authz_core.\r\nEnabling module authz_host.\r\nEnabling module authn_core.\r\nEnabling module auth_basic.\r\nEnabling module access_compat.\r\nEnabling module authn_file.\r\nEnabling module authz_user.\r\nEnabling module alias.\r\nEnabling module dir.\r\nEnabling module autoindex.\r\nEnabling module env.\r\nEnabling module mime.\r\nEnabling module negotiation.\r\nEnabling module setenvif.\r\nEnabling module filter.\r\nEnabling module deflate.\r\nEnabling module status.\r\nEnabling module reqtimeout.\r\nEnabling conf charset.\r\nEnabling conf localized-error-pages.\r\nEnabling conf other-vhosts-access-log.\r\nEnabling conf security.\r\nEnabling conf serve-cgi-bin.\r\nEnabling site 000-default.\r\nCreated symlink /etc/systemd/system/multi-user.target.wants/apache2.service → /usr/lib/systemd/system/apache2.service.\r\r\nCreated symlink /etc/systemd/system/multi-user.target.wants/apache-htcacheclean.service → /usr/lib/systemd/system/apache-htcacheclean.service.\r\r\nProcessing triggers for ufw (0.36.2-6) ...\r\nProcessing triggers for man-db (2.12.0-4build2) ...\r\nProcessing triggers for libc-bin (2.39-0ubuntu8.4) ...\r\n\nPending kernel upgrade!\nRunning kernel version:\n  6.8.0-51-generic\nDiagnostics:\n  The currently running kernel version is not the expected kernel version 6.8.0-56-generic.\n\nRestarting the system to load the new kernel will not be handled automatically, so you should consider rebooting.\n\nRestarting services...\n systemctl restart vboxadd-service.service\n\nService restarts being deferred:\n /etc/needrestart/restart.d/dbus.service\n systemctl restart getty@tty1.service\n systemctl restart systemd-logind.service\n systemctl restart unattended-upgrades.service\n\nNo containers need to be restarted.\n\nNo user sessions are running outdated binaries.\n\nNo VM guests are running outdated hypervisor (qemu) binaries on this host.\n",
+    "stdout_lines": [
+        "Reading package lists...",
+        "Building dependency tree...",
+        "Reading state information...",
+        "The following additional packages will be installed:",
+        "  apache2-bin apache2-data apache2-utils libapr1t64 libaprutil1-dbd-sqlite3",
+        "  libaprutil1-ldap libaprutil1t64 liblua5.4-0 ssl-cert",
+        "Suggested packages:",
+        "  apache2-doc apache2-suexec-pristine | apache2-suexec-custom www-browser",
+        "The following NEW packages will be installed:",
+        "  apache2 apache2-bin apache2-data apache2-utils libapr1t64",
+        "  libaprutil1-dbd-sqlite3 libaprutil1-ldap libaprutil1t64 liblua5.4-0 ssl-cert",
+        "0 upgraded, 10 newly installed, 0 to remove and 120 not upgraded.",
+        "Need to get 2084 kB of archives.",
+        "After this operation, 8094 kB of additional disk space will be used.",
+        "Get:1 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 libapr1t64 amd64 1.7.2-3.1ubuntu0.1 [108 kB]",
+        "Get:2 http://us.archive.ubuntu.com/ubuntu noble/main amd64 libaprutil1t64 amd64 1.6.3-1.1ubuntu7 [91.9 kB]",
+        "Get:3 http://us.archive.ubuntu.com/ubuntu noble/main amd64 libaprutil1-dbd-sqlite3 amd64 1.6.3-1.1ubuntu7 [11.2 kB]",
+        "Get:4 http://us.archive.ubuntu.com/ubuntu noble/main amd64 libaprutil1-ldap amd64 1.6.3-1.1ubuntu7 [9116 B]",
+        "Get:5 http://us.archive.ubuntu.com/ubuntu noble/main amd64 liblua5.4-0 amd64 5.4.6-3build2 [166 kB]",
+        "Get:6 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 apache2-bin amd64 2.4.58-1ubuntu8.5 [1329 kB]",
+        "Get:7 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 apache2-data all 2.4.58-1ubuntu8.5 [163 kB]",
+        "Get:8 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 apache2-utils amd64 2.4.58-1ubuntu8.5 [97.1 kB]",
+        "Get:9 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 apache2 amd64 2.4.58-1ubuntu8.5 [90.2 kB]",
+        "Get:10 http://us.archive.ubuntu.com/ubuntu noble/main amd64 ssl-cert all 1.1.2ubuntu1 [17.8 kB]",
+        "Preconfiguring packages ...",
+        "Fetched 2084 kB in 1s (2086 kB/s)",
+        "Selecting previously unselected package libapr1t64:amd64.",
+        "(Reading database ... ",
+        "(Reading database ... 5%",
+        "(Reading database ... 10%",
+        "(Reading database ... 15%",
+        "(Reading database ... 20%",
+        "(Reading database ... 25%",
+        "(Reading database ... 30%",
+        "(Reading database ... 35%",
+        "(Reading database ... 40%",
+        "(Reading database ... 45%",
+        "(Reading database ... 50%",
+        "(Reading database ... 55%",
+        "(Reading database ... 60%",
+        "(Reading database ... 65%",
+        "(Reading database ... 70%",
+        "(Reading database ... 75%",
+        "(Reading database ... 80%",
+        "(Reading database ... 85%",
+        "(Reading database ... 90%",
+        "(Reading database ... 95%",
+        "(Reading database ... 100%",
+        "(Reading database ... 124309 files and directories currently installed.)",
+        "Preparing to unpack .../0-libapr1t64_1.7.2-3.1ubuntu0.1_amd64.deb ...",
+        "Unpacking libapr1t64:amd64 (1.7.2-3.1ubuntu0.1) ...",
+        "Selecting previously unselected package libaprutil1t64:amd64.",
+        "Preparing to unpack .../1-libaprutil1t64_1.6.3-1.1ubuntu7_amd64.deb ...",
+        "Unpacking libaprutil1t64:amd64 (1.6.3-1.1ubuntu7) ...",
+        "Selecting previously unselected package libaprutil1-dbd-sqlite3:amd64.",
+        "Preparing to unpack .../2-libaprutil1-dbd-sqlite3_1.6.3-1.1ubuntu7_amd64.deb ...",
+        "Unpacking libaprutil1-dbd-sqlite3:amd64 (1.6.3-1.1ubuntu7) ...",
+        "Selecting previously unselected package libaprutil1-ldap:amd64.",
+        "Preparing to unpack .../3-libaprutil1-ldap_1.6.3-1.1ubuntu7_amd64.deb ...",
+        "Unpacking libaprutil1-ldap:amd64 (1.6.3-1.1ubuntu7) ...",
+        "Selecting previously unselected package liblua5.4-0:amd64.",
+        "Preparing to unpack .../4-liblua5.4-0_5.4.6-3build2_amd64.deb ...",
+        "Unpacking liblua5.4-0:amd64 (5.4.6-3build2) ...",
+        "Selecting previously unselected package apache2-bin.",
+        "Preparing to unpack .../5-apache2-bin_2.4.58-1ubuntu8.5_amd64.deb ...",
+        "Unpacking apache2-bin (2.4.58-1ubuntu8.5) ...",
+        "Selecting previously unselected package apache2-data.",
+        "Preparing to unpack .../6-apache2-data_2.4.58-1ubuntu8.5_all.deb ...",
+        "Unpacking apache2-data (2.4.58-1ubuntu8.5) ...",
+        "Selecting previously unselected package apache2-utils.",
+        "Preparing to unpack .../7-apache2-utils_2.4.58-1ubuntu8.5_amd64.deb ...",
+        "Unpacking apache2-utils (2.4.58-1ubuntu8.5) ...",
+        "Selecting previously unselected package apache2.",
+        "Preparing to unpack .../8-apache2_2.4.58-1ubuntu8.5_amd64.deb ...",
+        "Unpacking apache2 (2.4.58-1ubuntu8.5) ...",
+        "Selecting previously unselected package ssl-cert.",
+        "Preparing to unpack .../9-ssl-cert_1.1.2ubuntu1_all.deb ...",
+        "Unpacking ssl-cert (1.1.2ubuntu1) ...",
+        "Setting up ssl-cert (1.1.2ubuntu1) ...",
+        "Created symlink /etc/systemd/system/multi-user.target.wants/ssl-cert.service → /usr/lib/systemd/system/ssl-cert.service.",
+        "",
+        "Setting up libapr1t64:amd64 (1.7.2-3.1ubuntu0.1) ...",
+        "Setting up liblua5.4-0:amd64 (5.4.6-3build2) ...",
+        "Setting up apache2-data (2.4.58-1ubuntu8.5) ...",
+        "Setting up libaprutil1t64:amd64 (1.6.3-1.1ubuntu7) ...",
+        "Setting up libaprutil1-ldap:amd64 (1.6.3-1.1ubuntu7) ...",
+        "Setting up libaprutil1-dbd-sqlite3:amd64 (1.6.3-1.1ubuntu7) ...",
+        "Setting up apache2-utils (2.4.58-1ubuntu8.5) ...",
+        "Setting up apache2-bin (2.4.58-1ubuntu8.5) ...",
+        "Setting up apache2 (2.4.58-1ubuntu8.5) ...",
+        "Enabling module mpm_event.",
+        "Enabling module authz_core.",
+        "Enabling module authz_host.",
+        "Enabling module authn_core.",
+        "Enabling module auth_basic.",
+        "Enabling module access_compat.",
+        "Enabling module authn_file.",
+        "Enabling module authz_user.",
+        "Enabling module alias.",
+        "Enabling module dir.",
+        "Enabling module autoindex.",
+        "Enabling module env.",
+        "Enabling module mime.",
+        "Enabling module negotiation.",
+        "Enabling module setenvif.",
+        "Enabling module filter.",
+        "Enabling module deflate.",
+        "Enabling module status.",
+        "Enabling module reqtimeout.",
+        "Enabling conf charset.",
+        "Enabling conf localized-error-pages.",
+        "Enabling conf other-vhosts-access-log.",
+        "Enabling conf security.",
+        "Enabling conf serve-cgi-bin.",
+        "Enabling site 000-default.",
+        "Created symlink /etc/systemd/system/multi-user.target.wants/apache2.service → /usr/lib/systemd/system/apache2.service.",
+        "",
+        "Created symlink /etc/systemd/system/multi-user.target.wants/apache-htcacheclean.service → /usr/lib/systemd/system/apache-htcacheclean.service.",
+        "",
+        "Processing triggers for ufw (0.36.2-6) ...",
+        "Processing triggers for man-db (2.12.0-4build2) ...",
+        "Processing triggers for libc-bin (2.39-0ubuntu8.4) ...",
+        "",
+        "Pending kernel upgrade!",
+        "Running kernel version:",
+        "  6.8.0-51-generic",
+        "Diagnostics:",
+        "  The currently running kernel version is not the expected kernel version 6.8.0-56-generic.",
+        "",
+        "Restarting the system to load the new kernel will not be handled automatically, so you should consider rebooting.",
+        "",
+        "Restarting services...",
+        " systemctl restart vboxadd-service.service",
+        "",
+        "Service restarts being deferred:",
+        " /etc/needrestart/restart.d/dbus.service",
+        " systemctl restart getty@tty1.service",
+        " systemctl restart systemd-logind.service",
+        " systemctl restart unattended-upgrades.service",
+        "",
+        "No containers need to be restarted.",
+        "",
+        "No user sessions are running outdated binaries.",
+        "",
+        "No VM guests are running outdated hypervisor (qemu) binaries on this host."
+    ]
+}
 ```
 
 > If you run the same command the 2nd time:
-
 ```
-$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=present"
+$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m apt -a "name=apache2 state=present"
+[WARNING]: Platform linux on host labvm1 is using the discovered Python interpreter at
+/usr/bin/python3.12, but future installation of another Python interpreter could change the
+meaning of that path. See https://docs.ansible.com/ansible-
+core/2.17/reference_appendices/interpreter_discovery.html for more information.
+labvm1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3.12"
+    },
+    "cache_update_time": 1743374086,
+    "cache_updated": false,
+    "changed": false
+}
 ```
+This is becuase Ansible is considered **idempotent**. It makes changes only if needed. Since Apache web server is already installed, it will not reinstall it.
 
+We see there is warning message regarding the Python interpreter, which could be eliminated by setting up a configuration in Ansible
+```
+$ sudo vim /etc/ansible/ansible.cfg
+[defaults]
+interpreter_python=auto_silent
+```
 Now run the similar command but with "state=latest":
 
 ```
-$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -b -m yum -a "name=epel-release state=latest"
+$  ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m apt -a "name=apache2 state=latest"
+labvm1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3.12"
+    },
+    "cache_update_time": 1743374086,
+    "cache_updated": false,
+    "changed": false
+}
 ```
+The warning message dispeared.
 
 Depending on the status of the packages installed on your VM, the output may not exactly the same as shown above. Please read and try to understanding the meaning of the text return by ansible. If it's been updated instead, then run the command again.
 

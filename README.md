@@ -245,7 +245,7 @@ labvm1 | FAILED! => {
 Add the '-b' option to tell ansible to invoke "sudo" when running the apt command on the remote machine:
 ```
 $  ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m apt -a "name=apache2 state=present"
-<details>
+
 [WARNING]: Platform linux on host labvm1 is using the discovered Python interpreter at
 /usr/bin/python3.12, but future installation of another Python interpreter could change the
 meaning of that path. See https://docs.ansible.com/ansible-
@@ -408,7 +408,6 @@ labvm1 | CHANGED => {
         "No VM guests are running outdated hypervisor (qemu) binaries on this host."
     ]
 }
-</details>
 ```
 
 > If you run the same command the 2nd time:
@@ -458,33 +457,15 @@ Depending on the status of the packages installed on your VM, the output may not
 One of the core ansible module is called "setup", it is automatically called by ansible playbook to gather useful "facts" about remote hosts that can be used in ansible playbooks. It can also be executed directly by the ansible command (/usr/bin/ansible) to check out what "facts" are available on a remote host.
 
 ```
-$ ansible vmlab -i hosts --private-key ~/.ssh/id_rsa -u instructor -m setup
-vmlab | SUCCESS => {
+$ ansible labvm1 -i hosts -m setup
+labvm1 | SUCCESS => {
     "ansible_facts": {
         "ansible_all_ipv4_addresses": [
-            "10.102.114.140"
-        ], 
-        "ansible_all_ipv6_addresses": [
-            "fe80::21d:d8ff:feb7:20cc"
-        ], 
-        "ansible_apparmor": {
-            "status": "disabled"
-        }, 
-        "ansible_architecture": "x86_64", 
-        "ansible_bios_date": "11/26/2012", 
-
-...
-
-        "ansible_userspace_bits": "64", 
-        "ansible_virtualization_role": "guest", 
-        "ansible_virtualization_type": "VirtualPC", 
-        "discovered_interpreter_python": "/usr/bin/python", 
-        "gather_subset": [
-            "all"
-        ], 
-        "module_setup": true
-    }, 
-    "changed": false
+            "10.0.2.15",
+            "192.168.56.10"
+        ],
+... the output omitted
+"changed": false
 }
 ```
 
@@ -502,6 +483,8 @@ What is a playbook?
 Name: motd-play.yml
 
 ```
+$ curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/motd.yml -o motd.yml
+
 $ cat motd-play.yml 
 ---
 - name: update motd file

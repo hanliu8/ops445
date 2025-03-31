@@ -9,10 +9,10 @@
   tasks:
     - name: Install Apache
       apt:
-        name: httpd
+        name: apache2
         state: present
     
     - name: restart Apache
       service: 
-        name: httpd
+        name: apache2
         state: restarted

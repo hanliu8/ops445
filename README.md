@@ -412,7 +412,9 @@ labvm1 | CHANGED => {
     ]
 }
 </details>
->If you run the same command the 2nd time:
+
+If you run the same command the 2nd time:
+
 ```
 $ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -b -m apt -a "name=apache2 state=present"
 ```

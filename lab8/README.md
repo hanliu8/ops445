@@ -47,7 +47,6 @@ verify the installation from command prompt
 ```
 vagrant --version
 ```
-> Vagrant 2.4.3
 
 ### Provision VMs
 create a project directory

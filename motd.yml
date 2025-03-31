@@ -1,0 +1,13 @@
+---
+- name: update motd file
+  hosts: vmlab
+  user: instructor
+  vars:
+    apache_version: 2.6
+    motd_warning: "WARNING: used by ICT faculty/students only.\n"
+    testserver: yes
+  tasks:
+    - name: setup a MOTD
+      copy:
+        dest: /etc/motd
+        content: "{{ motd_warning }}"

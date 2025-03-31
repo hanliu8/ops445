@@ -170,22 +170,22 @@ labvm2   ansible_host=192.168.56.11 ansible_port=22 ansible_ssh_private_key_file
 ```
 ```
 $ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -m copy -a "src=/home/vagrant/hosts dest=/tmp/ansible_hosts"
-vmlab | CHANGED => {
+labvm1 | CHANGED => {
     "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    }, 
-    "changed": true, 
-    "checksum": "bc4ffa4127e3af3228e61f0ddc4fca87c5e548a4", 
-    "dest": "/tmp/ansible_hosts", 
-    "gid": 1003, 
-    "group": "instructor", 
-    "md5sum": "17e94f6ee9ce0920ebf835bd4f6250a7", 
-    "mode": "0664", 
-    "owner": "instructor", 
-    "size": 423, 
-    "src": "/home/instructor/.ansible/tmp/ansible-tmp-1616732233.49-236519-35150082693243/source", 
-    "state": "file", 
-    "uid": 1003
+        "discovered_interpreter_python": "/usr/bin/python3.12"
+    },
+    "changed": true,
+    "checksum": "f800d7c90175d1b6f4a482575f748cb988c42d3d",
+    "dest": "/tmp/ansible_hosts",
+    "gid": 1000,
+    "group": "vagrant",
+    "md5sum": "2c6e21d11e3ac8050ff19bf11340c14e",
+    "mode": "0664",
+    "owner": "vagrant",
+    "size": 210,
+    "src": "/home/vagrant/.ansible/tmp/ansible-tmp-1743379689.9955702-30857-203528441420686/.source",
+    "state": "file",
+    "uid": 1000
 }
 ```
 
@@ -217,7 +217,28 @@ ansible-doc apt
 The following command demonstrates how to install the "epel-release" package with the "yum" module with different module arguments and under different remote user (your result may be differ from what is show below):
 
 ```
-$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -m apt -a "name=software-properties-common state=present"
+$ ansible labvm1 -i hosts --private-key ~/.ssh/id_rsa -u vagrant -m apt -a "name=httpd state=present"
+[WARNING]: Platform linux on host labvm1 is using the discovered Python interpreter at
+/usr/bin/python3.12, but future installation of another Python interpreter could change the
+meaning of that path. See https://docs.ansible.com/ansible-
+core/2.17/reference_appendices/interpreter_discovery.html for more information.
+labvm1 | FAILED! => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3.12"
+    },
+    "cache_update_time": 1743374086,
+    "cache_updated": false,
+    "changed": false,
+    "msg": "'/usr/bin/apt-get -y -o \"Dpkg::Options::=--force-confdef\" -o \"Dpkg::Options::=--force-confold\"       install 'httpd'' failed: E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\nE: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?\n",
+    "rc": 100,
+    "stderr": "E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\nE: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?\n",
+    "stderr_lines": [
+        **"E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)",**
+        "E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?"
+    ],
+    "stdout": "",
+    "stdout_lines": []
+}
 ```
 
 Add the '-b' option to tell ansible to invoke "sudo" when running the yum command on the remote machine:

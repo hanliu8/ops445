@@ -1,5 +1,5 @@
 ---
-- hosts: [webservers]
+- hosts: webservers
   user: vagrant
   become: yes
   vars:
@@ -8,7 +8,7 @@
     testserver: yes
   tasks:
     - name: Install Apache
-      action: apt name=httpd state=installed
+      action: apt name=httpd state=present
     
     - name: restart Apache
       service: 

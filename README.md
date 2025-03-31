@@ -1555,7 +1555,7 @@ Create an ansible playbook named "config_ops445.yml" using the appropriate modul
 
 update Apache (apache2) installed in the **Investigation 2 - Part 2**
 
-install _'tree'_ package
+install _'tree'_ package  [apt module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#ansible-collections-ansible-builtin-apt-module)
 
 set the hostname to your Seneca username (Seneca ID) [hostname module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/hostname_module.html#ansible-collections-ansible-builtin-hostname-module)
 
@@ -1575,9 +1575,9 @@ setup a directory structure using a loop for completing and organizing labs as s
       /home/[seneca_id]/ops445/lab8
       
 
-> when it's ready, run your playbook
-> in order to test it, log into the VM with the newly created user (your Seneca_ID), install the 'tree' package with sudo, and check the directory structure with the 'tree' command
-> if everything is correct, capture its output for a successful run of your playbook to a file named "lab8_[seneca_id].txt"
+- when it's ready, run your playbook
+- in order to test it, log into the VM with the newly created user (your Seneca_ID), install the 'tree' package with sudo, and check the directory structure with the 'tree' command
+- if everything is correct, capture its output for a successful run of your playbook to a file named "lab8_[seneca_id].txt"
 
 ## Lab 8 Sign-off (Show Instructor)
 #### Have the following items ready to show your instructor:

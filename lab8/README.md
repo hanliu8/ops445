@@ -57,8 +57,8 @@ mkdir -p C:\vagrant\ops445
 change to the newly created directory and download the configuration files
 ```
 cd C:\vagrant\ops445
-curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/Vagrantfile?token=GHSAT0AAAAAADBB3LJTTT4SUPAJA7UHTAOCZ7J2SVA -o Vagrantfile
-curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/common-dependencies.sh?token=GHSAT0AAAAAADBB3LJSUFUP4YZMXQLHTA46Z7J2TSQ -o common-dependencies.sh
+curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/lab8/Vagrantfile -o Vagrantfile
+curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/lab8/common-dependencies.sh -o common-dependencies.sh
 vagrant up
 ```
 once the vagrant completes provisioning VMs, launch the Oracle VirtualBox to verify 3 VMs up and running
@@ -81,7 +81,7 @@ verify the ssh connection to the two VMs
 **Should not prompt for password**
 ```
 ssh vagrant@192.168.56.10
-ssh vagrant@192.168.56.10
+ssh vagrant@192.168.56.11
 ```
 verify Ansible installed
 ```
@@ -89,7 +89,7 @@ ansible --version
 ```
 download the sample inventory file
 ```
-curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/hosts?token=GHSAT0AAAAAADBB3LJSQ3OEKR54L66SWI2KZ7J2O6A -o hosts
+curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/lab8/hosts -o hosts
 ```
 
 ## Investigation 1: The Ansible Package
@@ -1513,11 +1513,13 @@ Name: httpd-play.yml
     testserver: yes
   tasks:
     - name: Install Apache
-      action: apt name=httpd state=installed
+      apt:
+        name: apache2
+        state: present
     
     - name: restart Apache
       service: 
-        name: httpd
+        name: apache2
         state: restarted
 
 Sample Run:
@@ -1544,26 +1546,27 @@ Assume you have just installed the latest version of CentOS 7.x on a VM with GNO
 
 Study the documentation and examples of following ansible modules:
 
-- copy
-- file
-- hostname
-- template
-- user
-- apt
+- [copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#ansible-collections-ansible-builtin-copy-module)
+- [file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html#ansible-collections-ansible-builtin-file-module)
+- [hostname](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/hostname_module.html#ansible-collections-ansible-builtin-hostname-module)
+- [template](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html#ansible-collections-ansible-builtin-template-module)
+- [user](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html#ansible-collections-ansible-builtin-user-module)
+- [apt](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#ansible-collections-ansible-builtin-apt-module)
+- [loops](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html)
 
 Create an ansible playbook named "config_ops445.yml" using the appropriate modules to perform the following configuration tasks on your assigned VM:
 
 update Apache (apache2) installed in the **Investigation 2 - Part 2**
 
-install _'tree'_ package  [apt module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#ansible-collections-ansible-builtin-apt-module)
+install _'tree'_ package  
 
-set the hostname to your Seneca username (Seneca ID) [hostname module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/hostname_module.html#ansible-collections-ansible-builtin-hostname-module)
+set the hostname to your Seneca username (Seneca ID) 
 
-create a new user with your Seneca_ID with sudo access  [user module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html#ansible-collections-ansible-builtin-user-module)
+create a new user with your Seneca_ID with sudo access  
 
 configure the new user account you created above so that you can ssh to it without password
 
-setup a directory structure using a loop for completing and organizing labs as shown below: [Ansible Loops](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html)
+setup a directory structure using a loop for completing and organizing labs as shown below: 
 
       /home/[seneca_id]/ops445/lab1
       /home/[seneca_id]/ops445/lab2

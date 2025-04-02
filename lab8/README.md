@@ -24,7 +24,7 @@ Ansible uses no additional custom security infrastructure, and it uses a very si
 ## Development Environment Setup
 ### Install Oracle VirtualBox
 
-download the Oracle VirtualBox installation for Windows
+download the [Oracle VirtualBox](https://www.virtualbox.org/wiki/Downloads) installation for Windows
 ```
 curl https://download.virtualbox.org/virtualbox/7.1.6/VirtualBox-7.1.6-167084-Win.exe -o VirtualBox-7.1.6-167084-Win.exe
 ```
@@ -35,7 +35,7 @@ VirtualBox-7.1.6-167084-Win.exe
 verify your installation by launch the VirtualBox from Startup menu
 
 ### Install Vagrant 
-download Vagrant installation package for Windows
+download [Vagrant](https://developer.hashicorp.com/vagrant/install) installation package for Windows
 ```
 curl https://releases.hashicorp.com/vagrant/2.4.3/vagrant_2.4.3_windows_amd64.msi -o vagrant_2.4.3_windows_amd64.msi
 ```

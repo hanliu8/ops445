@@ -1463,7 +1463,7 @@ What is a playbook?
 - Playbook links a task to an ansible module and provide needed arguments to the module which requires them.
 
 ### Part 1: A playbook to update the /etc/motd file
-Name: motd-play.yml
+Name: motd.yml
 
 ```
 $ curl https://raw.githubusercontent.com/hanliu8/ops445/refs/heads/main/motd.yml -o motd.yml

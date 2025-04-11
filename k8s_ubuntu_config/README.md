@@ -114,7 +114,7 @@ sudo apt-get install -y apt-transport-https ca-certificates curl gpg gnupg2 soft
 ```
 
 ## Install Kubernetes Tools
-1. add Kubernetes repository and keys
+1. add Kubernetes repository and keys\
 if `/etc/apt/keyrings` director does not exist
 ```bash
 sudo mkdir -p -m 755 /etc/apt/keyrings
@@ -129,7 +129,7 @@ add Kubernetes repository (This overwrites any existing configuration in /etc/ap
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
 ```
-install packages
+2. install packages
 ```bash
 sudo apt-get update
 sudo apt-get install -y kubectl kubelet kubeadm

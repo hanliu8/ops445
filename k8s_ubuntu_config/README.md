@@ -76,10 +76,62 @@ cat /etc/fstab | grep swap
 create '/etc/modules-load.d/k8s.conf` file and add following lines
 ```
 sudo vim /etc/modules-load.d/k8s.connf
+```
+```
 overlay
 br_netfilter
 ```
+load the module
+```bash
+sudo modprobe overlay
+sudo modprobe br_netfilter
+```
+verify the modules loaded
+```
+lsmod | grep "overlay\|br_netfilter"
+```
 
-8. 
+8. configure network parameters
+create `/etc/sysctl.d/k8s.conf' file
+```bash
+sudo vim /etc/sysctl.d/k8s.conf
+```
+add lines
+```
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_foward = 1
+```
+apply the changes
+```bash
+sudo sysctl --system
+```
 
-9. 
+9. install software tools
+```bash
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg gnupg2 software-properties-common
+```
+
+## Install Kubernetes Tools
+1. add Kubernetes repository and keys
+if `/etc/apt/keyrings` director does not exist
+```bash
+sudo mkdir -p -m 755 /etc/apt/keyrings
+```
+download and add repository keys
+```bash
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring
+```
+add Kubernetes repository (This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list)
+```bash
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
+```
+install packages
+```bash
+sudo apt-get update
+sudo apt-get install -y kubectl kubelet kubeadm
+```
+

@@ -17,3 +17,12 @@ validate the download file
 ```bash
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 ```
+install kubectl
+```bash
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+validate the installation
+```bash
+kubectl version --client --output=yaml
+```
+

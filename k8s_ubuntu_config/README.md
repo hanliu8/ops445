@@ -135,5 +135,126 @@ sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
 ```bash
 sudo apt-get update
 sudo apt-get install -y kubectl kubelet kubeadm
+sudo apt-mark hold kubelet kubeadm kubectl  # depends on if you have container runtime installed
 ```
+
+## Install container runtime
+> containerd is used
+add containerd repository
+```bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+enable read access of the gpg file
+```bash
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+sudo ls -al /etc/apt/keyrings
+```
+```bash
+echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list
+
+sudo cat /etc/apt/sources.list.d/docker.list
+```
+
+install containerd
+```bash
+sudo apt update
+sudo apt install -y containerd.io
+```
+configure containerd
+```bash
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+verify the configuration
+```bash
+sudo cat /etc/containerd/config.toml
+```
+> Output must contain the following
+```
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]  
+  runtime_type = "io.containerd.runc.v2"  
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]  
+     SystemdCgroup = true
+```
+restart & enable the containerd service
+```bash
+sudo systemctl status containerd.service
+sudo systemctl restart containerd.service
+sudo systemctl enable containerd.service
+```
+install crictl if not installed & configure the configuration
+```bash
+sudo crictl ps
+sudo apt install crictl
+sudo vim /etc/crictl.yaml
+```
+copy & paste the following content
+```
+runtime-endpoint: unix:///run/containerd/containerd.sock
+image-endpoint: unix:///run/containerd/containerd.sock
+timeout: 2
+debug: true # <- if you don't want to see debug info you can set this to false
+pull-image-on-create: false
+```
+pull images
+```bash
+sudo kubeadm config images pull --cri-socket unix:///var/run/containerd/containerd.sock
+```
+initialize the control plane
+```bash
+sudo kubeadm init --pod-network-cidr=10.244.0.0./16 --cri-socket unix://var/run/containerd/containerd.sock
+```
+> you will see the output similar to below
+```
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.146.220:6443 --token gpkwa8.shu07vqma0i39ppd \
+        --discovery-token-ca-cert-hash sha256:fdaae780b5426ffd84d796f2532b6c258bb6ad2a515b6b3cd5b8af8b530bf598
+```
+configure environment for running kubectl
+```bash
+kubectl get nodes
+
+mkdir ~/.kube
+sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
+sudo chown $(id -u):$(id -g) ~/.kube/config
+
+kubectl get nodes
+
+sudo crictl ps
+```
+install CNI plugin, weave net
+```bash
+kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.32/net.yaml
+```
+- replace v1.32 with the installed kubernetes version
+
+
+
+
+
+
+
+  
+
+
+
+
 

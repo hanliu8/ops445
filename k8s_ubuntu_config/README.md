@@ -244,7 +244,15 @@ install CNI plugin, weave net
 ```bash
 kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.32/net.yaml
 ```
-- replace v1.32 with the installed kubernetes version
+- replace `v1.32` with the installed kubernetes version
+
+verify the weave network plugins installed
+```bash
+sudo crictl ps
+
+kubectl get nodes
+```
+## configure worker node
 
 
 

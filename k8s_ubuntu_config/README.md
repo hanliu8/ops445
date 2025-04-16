@@ -18,7 +18,9 @@ sudo netstat -tulpn | grep 10250
 - 10259 - kube-scheduler
 - 30000 - 32767 - NodePort range
 
-![image](https://github.com/user-attachments/assets/87175153-8cb9-4773-ab2c-dcd140ef3198)
+![Control Plane Ports](https://github.com/user-attachments/assets/87175153-8cb9-4773-ab2c-dcd140ef3198)
+![Workder Node Ports](https://github.com/user-attachments/assets/a710e319-ff95-4215-a5f3-9350af3e93a3)
+
 
 
 >> if the netstat is not installed, it is part of the net-tools package

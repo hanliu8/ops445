@@ -136,6 +136,30 @@ add repository
 echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable"
 ```
+install the containerd
+```bash
+sudo apt update
+sudo apt install -y containerd.io
+```
+generate default configuration toml file
+```bash
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+create a directory for containerd configuration file
+```bash
+sudo mkdir -p /etc/containerd
+```
+edit /etc/containerd/config.toml file and ensure the following lines exist
+```
+disabled_plugins = []  # <- at the beginning of the file
+...
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+    runtime_type = "io.containerd.runc.v2"  # <- note this, this line might have been missed
+    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+      SystemdCgroup = true # <- note this, this could be set as false in the default configuration, please make it true
+```
+
+
 
 
 

@@ -158,6 +158,62 @@ disabled_plugins = []  # <- at the beginning of the file
     [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
       SystemdCgroup = true # <- note this, this could be set as false in the default configuration, please make it true
 ```
+install [crictl tools](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)
+> replace the version of the Kubernetes version
+```bash
+VERSION="v1.32.0"
+wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-$VERSION-linux-amd64.tar.gz
+sudo tar zxvf crictl-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
+rm -f crictl-$VERSION-linux-amd64.tar.gz
+```
+check the container status
+```bash
+sudo crictl ps
+```
+#### install Kubernetes
+create `/etc/apt/keyrings' director if it does not exist
+```bash
+sudo mkdir -m 0755 /etc/apt/keyrings
+```
+download & add kubernetes repository key
+```bash
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | \
+  sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+add Kubernetes repository
+```bash
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | \
+  sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+install Kubernetes
+```bash
+sudo apt update
+sudo apt install -y kubelet kubeadm kubectl
+```
+> optional: if container runtime is not installed, suspend the k8s
+```bash
+sudo apt-mark hold kubelet kubeadm kubectl
+```
+#### join the worker node to the cluster
+on control plane
+```bash
+kubeadm token create --print-join-command
+```
+copy the output of the command similar to below
+```
+kubeadm join 192.168.146.220:6443 — token dg67p7.wvt7n5zxx9pxbmaz — discovery-token-ca-cert-hash sha256:36f9eb64ef8a6d45254b8994108b0e3a56e856bcb3b07d46cd83554db4114490
+```
+on worker node, execute the command generated from previous step
+```bash
+kubeadm join 192.168.146.220:6443 - token ...
+```
+on control plane, verify the worker node is added into the cluster
+```bash
+kubectl get nodes
+```
+
+
+
 
 
 

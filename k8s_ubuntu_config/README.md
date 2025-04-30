@@ -80,7 +80,7 @@ cat /etc/fstab | grep swap
 6. configure kernel modules
 create '/etc/modules-load.d/k8s.conf` file and add following lines
 ```
-sudo vim /etc/modules-load.d/k8s.connf
+sudo vim /etc/modules-load.d/k8s.conf
 ```
 ```
 overlay

@@ -12,6 +12,9 @@ sudo dpkg -i libldap-2.5-0_2.5.13+dfsg-5_amd64.deb
 curl -O http://debian.mirror.ac.za/debian/pool/main/o/openldap/libldap-dev_2.5.13+dfsg-5_amd64.deb
 sudo dpkg -i libldap-dev_2.5.13+dfsg-5_amd64.deb
 ```
-> download & run the script from this repository, install_sql_server_2022_on_ubuntu_24_04.sh
+> download & run the script from this repository, install_sql_server_2022_on_Ubuntu_24_04.sh
 ```bash
+chmod +x install_sql_server_2022_on_Ubuntu_24_04.sh
+./install_sql_server_2022_on_Ubuntu_24_04.sh
+```
 

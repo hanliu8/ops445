@@ -1,13 +1,5 @@
 #!/bin/bash -e
 
-# mssql-server requires LDAP libraries
-# install dependent LDAP libraries required for properly starting mssql-server service
-curl -O http://debian.mirror.ac.za/debian/pool/main/o/openldap/libldap-2.5-0_2.5.13+dfsg-5_amd64.deb
-sudo dpkg -i libldap-2.5-0_2.5.13+dfsg-5_amd64.deb
-
-curl -O http://debian.mirror.ac.za/debian/pool/main/o/openldap/libldap-dev_2.5.13+dfsg-5_amd64.deb
-sudo dpkg -i libldap-dev_2.5.13+dfsg-5_amd64.deb
-
 # Use the following variables to control your install:
 
 # Password for the SA user (required)
